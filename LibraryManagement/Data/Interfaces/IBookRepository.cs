@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Data.Interfaces
 {
-    interface Interface
+    interface IBookRepository
     {
     }
 }
