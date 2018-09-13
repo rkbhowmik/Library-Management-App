@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using LibraryManagement.Data.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.Data.Repository
 {
