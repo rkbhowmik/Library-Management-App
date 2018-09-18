@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Data.Interfaces;
+using LibraryManagement.Data.Model;
 using LibraryManagement.Data.Repository;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -14,7 +15,7 @@ namespace LibraryManagement.Controllers
         private readonly ICustomerRepository _customerRepository;
         private readonly IBookRepository _bookRepository;
 
-        public CustomerController(ICustomerRepository customerRepository, IBookRepository bookRepository )
+        public CustomerController(ICustomerRepository customerRepository, IBookRepository bookRepository)
         {
             _customerRepository = customerRepository;
             _bookRepository = bookRepository;
@@ -27,7 +28,7 @@ namespace LibraryManagement.Controllers
 
             var customers = _customerRepository.GetAll();
 
-            if(customers.Count() == 0)
+            if (customers.Count() == 0)
             {
                 return View("Empty");
             }
@@ -49,7 +50,32 @@ namespace LibraryManagement.Controllers
             var customer = _customerRepository.GetById(id);
             _customerRepository.Delete(customer);
             return RedirectToAction("List");
-
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Customer customer)
+        {
+            _customerRepository.Create(customer);
+            return RedirectToAction("List");
+        }
+
+        public IActionResult Update(int id)
+        {
+            var customer = _customerRepository.GetById(id);
+            return View(customer);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Customer customer)
+        {
+            _customerRepository.Update(customer);
+            return RedirectToAction("List");
+        }
+
     }
 }
