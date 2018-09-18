@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Data.Repository
 {
-    public class BookRepository : IBookRepository
+    public class BookRepository : Repository<Book>, IBookRepository
     {
-        protected readonly LibraryDbContext _context;
+      
 
-        public BookRepository (LibraryDbContext context)
+        public BookRepository (LibraryDbContext context) : base(context)
         {
-            _context = context;
         }
         public IEnumerable<Book> FindWithAuthor(Func<Book, bool> predicate)
         {

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace LibraryManagement.Data.Repository
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository : Repository<Author>, IAuthorRepository
     {
-        protected readonly LibraryDbContext _context;
+       
 
-        public AuthorRepository (LibraryDbContext context)
+        public AuthorRepository (LibraryDbContext context) : base(context)
         {
-            _context = context;
+          
         }
         public IEnumerable<Author> GetAllWithBooks()
         {
