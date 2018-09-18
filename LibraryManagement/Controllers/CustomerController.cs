@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Data.Interfaces;
+using LibraryManagement.Data.Repository;
 using LibraryManagement.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,12 +12,12 @@ namespace LibraryManagement.Controllers
     public class CustomerController : Controller
     {
         private readonly ICustomerRepository _customerRepository;
-        private readonly IBookRepository _bookrepository;
+        private readonly IBookRepository _bookRepository;
 
         public CustomerController(ICustomerRepository customerRepository, IBookRepository bookRepository )
         {
             _customerRepository = customerRepository;
-            _bookrepository = bookRepository;
+            _bookRepository = bookRepository;
         }
 
         public IActionResult List()
@@ -25,7 +26,21 @@ namespace LibraryManagement.Controllers
 
             var customers = _customerRepository.GetAll();
 
-            
+            if(customers.Count() == 0)
+            {
+                return View("Empty");
+            }
+
+            foreach (var customer in customers)
+            {
+                customerVM.Add(new CustomerViewModel
+                {
+                    Customer = customer,
+                    BookCount = _bookRepository.Count(x => x.BorrowerId == customer.CustomerId)
+                });
+            }
+
+            return View(customerVM);
         }
     }
 }
