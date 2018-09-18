@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LibraryManagement.Data;
 using LibraryManagement.Data.Interfaces;
 using LibraryManagement.Data.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -65,6 +66,8 @@ namespace LibraryManagement
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbSeeder.Seed(app);
         }
     }
 }

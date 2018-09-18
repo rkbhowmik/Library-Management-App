@@ -14,4 +14,3 @@ namespace LibraryManagement.Data.Repository
         public DbSet<Book> Books { get; set; }
     }
 }
-}
